@@ -2,6 +2,7 @@
     background: #58249c;
     padding: 20px;
     color: white;
+    width: 100%;
 }
 .navbar nav {
     display: flex;
@@ -25,4 +26,14 @@
 .navbar a:last-child:hover{
     background: white;
     color:#333
+}
+@media screen and (max-width:870px) { 
+    .navbar a:last-child  {
+        display: none;
+    }
+}
+@media screen and (max-width:650px) { 
+    .navbar a.brand{
+        margin: 0 auto;
+    }
 }
