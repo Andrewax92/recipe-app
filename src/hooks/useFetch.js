@@ -14,6 +14,16 @@ export const useFetch = (url, method = "GET") => {
             },
             body: JSON.stringify(postData)
         })
+
+    }
+
+    const deleteArticle = () => {
+        setOptions({
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
     }
 
     useEffect(() => {
@@ -27,7 +37,7 @@ export const useFetch = (url, method = "GET") => {
                 if (!res.ok) {
                     throw new Error(res.statusText)
                 }
-                console.log(res);
+                // console.log(res);
                 const data = await res.json()
 
 
@@ -47,10 +57,19 @@ export const useFetch = (url, method = "GET") => {
         if (method === "GET") {
             fetchData()
         }
+
         if (method === "POST" && options) {
 
             fetchData(options)
         }
+
+        if (options) {
+
+            fetchData()
+            console.log(method);
+        }
+
+
 
 
         return () => {
@@ -59,5 +78,5 @@ export const useFetch = (url, method = "GET") => {
 
     }, [url, method, options])
 
-    return { data, isPending, error, postData, options, method }
+    return { data, isPending, error, postData, options, method, deleteArticle }
 }

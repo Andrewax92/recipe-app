@@ -1,9 +1,10 @@
+// import '../create/create.css'
 import { useState,useRef, useEffect } from "react"
 import { useFetch } from "../../hooks/useFetch"
-import { useNavigate } from "react-router"
-import "./create.css"
+import { useNavigate,useLocation } from "react-router"
 
-const Create = () => {
+
+const Edit = () => {
   const[title,setTitle] = useState('')
   const[method,setMethod] = useState('')
   const[cookingTime,setCookinTime] = useState('')
@@ -13,6 +14,13 @@ const Create = () => {
   const[dublicateError,setDublicateError] = useState(null)
 
   const navigate = useNavigate()
+  const location = useLocation()
+  console.log(location);
+  
+  const importedCookingTimeString = location.state.data?.cookingTime.split()
+  const defaultCookingTime = parseInt(importedCookingTimeString[0])
+  console.log(defaultCookingTime);
+
 
   const{postData,data,error} = useFetch('http://localhost:3000/recipes','POST')
 
@@ -20,7 +28,7 @@ const Create = () => {
     e.preventDefault()
     // Posting Data
    console.log(data);
-   postData({title,ingredients,method,cookingTime:cookingTime +"minutes"})
+   postData({title,ingredients,method,cookingTime: cookingTime + "minutes"})
    console.log(data);
 
 
@@ -61,8 +69,9 @@ const Create = () => {
         <label htmlFor="recipe">Recipe Title</label>
         <input type="text"
           id="email"
-          value={title} 
-          onChange = { (e) => setTitle(e.target.value) }/>
+          value={location.state.data?.title} 
+          onChange = { (e) => setTitle(e.target.value) }
+          />
       </div>
 
         <div>
@@ -82,10 +91,10 @@ const Create = () => {
        </div>
 
        <div>
-        <label htmlFor="recipe">Recipe Title</label>
+        <label htmlFor="recipe">Recipe Method</label>
         <textarea 
         id="recipe"
-         value={method} 
+         value={location.state.data?.method} 
          onChange={(e) => setMethod(e.target.value)} />
       </div>
 
@@ -93,7 +102,7 @@ const Create = () => {
         <label htmlFor="cookinTime">Cooking Time</label>
         <input type="number" 
          id="cookingTime"
-         value={cookingTime}
+         value={defaultCookingTime}
          onChange={(e) => setCookinTime(e.target.value)}/>
       </div>
       
@@ -103,4 +112,4 @@ const Create = () => {
   )
 }
 
-export default Create
+export default Edit

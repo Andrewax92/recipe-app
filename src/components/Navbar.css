@@ -2,7 +2,7 @@
     background: #58249c;
     padding: 20px;
     color: white;
-    width: 100%;
+    max-width: 100%;
 }
 .navbar nav {
     display: flex;
