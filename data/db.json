@@ -1,20 +1,21 @@
 {
   "recipes": [
     {
-      "id": "2",
-      "title": "Veggie Pizza",
+      "title": "Veggie Pizza Important",
       "ingredients": [
         "1 Base",
         "Tomata pasata",
         "1 Green pepper",
-        "100g Mushrooms"
+        "100g Mushrooms",
+        "meat",
+        "apples"
       ],
       "method": "1. Pre-heat the oven to 200C/3C/gas 5. Add the pasata, green pepper and mushrooms to the base. Place the lid on the oven and cook for 30 minutes. 5. Serve with a slaw of your choice",
-      "cookingTime": "35 minutes"
+      "cookingTime": "90minutes",
+      "id": "2"
     },
     {
-      "id": "3",
-      "title": "Greek Salad",
+      "title": "Greek Salads",
       "ingredients": [
         "1 Onion",
         "1 Block of Feta",
@@ -23,7 +24,8 @@
         "Olive Oil"
       ],
       "method": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse minima ex rem quis similique eum ratione quaerat, voluptas molestias ut repudiandae delectus voluptates. Eius esse at tenetur ab accusamus excepturi?",
-      "cookingTime": "35 minutes"
+      "cookingTime": "28minutes",
+      "id": "3"
     },
     {
       "title": "andreiaxinoi1@gmail.com",

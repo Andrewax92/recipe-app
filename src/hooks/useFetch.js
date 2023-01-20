@@ -16,6 +16,18 @@ export const useFetch = (url, method = "GET") => {
         })
 
     }
+    const updateData = (dataToUpdate) => {
+        setOptions({
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dataToUpdate)
+        })
+
+    }
+
+
 
     const deleteArticle = () => {
         setOptions({
@@ -62,12 +74,12 @@ export const useFetch = (url, method = "GET") => {
 
             fetchData(options)
         }
+        if (method === "PUT" && options) {
 
-        if (options) {
-
-            fetchData()
-            console.log(method);
+            fetchData(options)
         }
+
+
 
 
 
@@ -78,5 +90,5 @@ export const useFetch = (url, method = "GET") => {
 
     }, [url, method, options])
 
-    return { data, isPending, error, postData, options, method, deleteArticle }
+    return { data, isPending, error, postData, options, method, deleteArticle, updateData }
 }

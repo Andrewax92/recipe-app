@@ -1,10 +1,12 @@
 // import '../create/create.css'
 import { useState,useRef, useEffect } from "react"
 import { useFetch } from "../../hooks/useFetch"
-import { useNavigate,useLocation } from "react-router"
+import { useNavigate,useLocation,useParams } from "react-router"
+import { useTheme } from "../../hooks/useTheme"
 
 
 const Edit = () => {
+  const{mode}=useTheme()
   const[title,setTitle] = useState('')
   const[method,setMethod] = useState('')
   const[cookingTime,setCookinTime] = useState('')
@@ -15,21 +17,18 @@ const Edit = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  console.log(location);
-  
-  const importedCookingTimeString = location.state.data?.cookingTime.split()
-  const defaultCookingTime = parseInt(importedCookingTimeString[0])
-  console.log(defaultCookingTime);
+  const{id} = useParams()
 
-
-  const{postData,data,error} = useFetch('http://localhost:3000/recipes','POST')
+  const url = `http://localhost:3000/recipes/${id}`
+  const{updateData,data} = useFetch(url,'PUT')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     // Posting Data
    console.log(data);
-   postData({title,ingredients,method,cookingTime: cookingTime + "minutes"})
+   updateData({title,ingredients,method,cookingTime: cookingTime + "minutes"})
    console.log(data);
+   
 
 
   }
@@ -54,14 +53,31 @@ const Edit = () => {
   
   useEffect(() => {
     
-    if(data){
-        navigate('/')
-    }
+    if (location.state.data){
+        setTitle(location.state.data.title)
+        setMethod(location.state.data.method)
 
-  },[data])
+        // setting the default CookingTime number
+        const importedCookingTimeString = location.state.data?.cookingTime.split()
+        const defaultCookingTime = parseInt(importedCookingTimeString[0])
+        setCookinTime(defaultCookingTime)
+
+        setIngredients(location.state.data?.ingredients)
+
+      }
+
+  },[])
+
+  useEffect(() => {
+     
+       if(data){
+         navigate('/')
+       }
+
+  })
 
   return (
-   <div className="create">
+   <div className={`create ${mode}`}>
 
 
    <form onSubmit={handleSubmit}> 
@@ -69,7 +85,7 @@ const Edit = () => {
         <label htmlFor="recipe">Recipe Title</label>
         <input type="text"
           id="email"
-          value={location.state.data?.title} 
+          value={title} 
           onChange = { (e) => setTitle(e.target.value) }
           />
       </div>
@@ -94,7 +110,7 @@ const Edit = () => {
         <label htmlFor="recipe">Recipe Method</label>
         <textarea 
         id="recipe"
-         value={location.state.data?.method} 
+         value={method} 
          onChange={(e) => setMethod(e.target.value)} />
       </div>
 
@@ -102,11 +118,11 @@ const Edit = () => {
         <label htmlFor="cookinTime">Cooking Time</label>
         <input type="number" 
          id="cookingTime"
-         value={defaultCookingTime}
+         value={cookingTime}
          onChange={(e) => setCookinTime(e.target.value)}/>
       </div>
       
-      <button className="btn">submit</button>
+      <button className="btn">Edit</button>
    </form>
    </div>
   )
